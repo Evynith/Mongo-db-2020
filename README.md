@@ -181,6 +181,51 @@
 27. ```sh
         db.players.distinct("name")
     ```
+28. ```sh
+        db.players.createIndex({position: 1})
+    ```
+29. ```sh
+        db.players.createIndex({position: 1})
+    ```
+29. ```sh
+        db.players.createIndex({
+            position: "text"
+        })
+    ```
+30. ```sh
+        db.players.find({
+            $text: { $search: "center" }
+        })
+    ```
+31. ```sh
+        db.games.updateMany(
+            { },
+            { $set: {"expireDate": new Date("2023-01-01")}}
+        )
+    ```
+
+32. ```sh
+        db.games.createIndex(
+            {expireDate: 1},
+            {expireAfterSeconds: 10 }
+        )
+    ```
+## Backup
+
+1. ```bash
+    mongodump --db futbolfifa
+    ```
+2. ```bash
+    cd dump/futbolfifa
+    ```
+3. ```bash
+    cat players.metadata.json
+    ```
+## Restore
+
+1. ```bash
+    mongorestore --db futbolfifa ./
+    ```
 
 ### Notes
 *var myDate = new Date("YYYY-mm-dd");* <br>
