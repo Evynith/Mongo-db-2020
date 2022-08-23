@@ -16,31 +16,31 @@
         {
         "name": "Lionel",
         "surname": "Messi",
-        "birth": new Date(1987-06-24),
+        "birth": new Date("1987-06-24"),
         "position": "Center Forward"
         },
         {
         "name": "Emiliano",
         "surname": "Martinez",
-        "birth": new Date(1992-09-02),
+        "birth": new Date("1992-09-02"),
         "position": "Goalkeeper"
         },
         {
         "name": "Nicolas",
         "surname": "Otamendi",
-        "birth": new Date(1988-02-12),
+        "birth": new Date("1988-02-12"),
         "position": "Center Back"
         },
         {
         "name": "Paulo",
         "surname": "Dybala",
-        "birth": new Date(1993-11-15),
+        "birth": new Date("1993-11-15"),
         "position": "Central Midfielder"
         },
         {
         "name": "Franco",
         "surname": "Armani",
-        "birth": new Date(1986-10-16),
+        "birth": new Date("1986-10-16"),
         "position": "Goalkeeper"
         }
     ])
@@ -147,9 +147,44 @@
             "duration": { $gt: 30}
         })
     ```
+23. ```sh
+        db.players.aggregate(
+    [
+        {
+        $project:
+            {
+            year: { $year: "$birth" },
+            month: { $month: "$birth" },
+            day: { $dayOfMonth: "$birth" },
+            hour: { $hour: "$birth" },
+            minutes: { $minute: "$birth" },
+            seconds: { $second: "$birth" },
+            milliseconds: { $millisecond: "$birth" },
+            dayOfYear: { $dayOfYear: "$birth" },
+            dayOfWeek: { $dayOfWeek: "$birth" },
+            week: { $week: "$birth" }
+            }
+        },
+          { $match : {"year": 1987 } }
+    ]
+    )
+    ```
+24. ```sh
+        db.players.find().sort({name: -1, surname: 1})
+    ```
+25. ```sh
+        db.players.find().skip(3).limit(1)
+    ```
+26. ```sh
+        db.players.find().skip(3).count()
+    ```
+27. ```sh
+        db.players.distinct("name")
+    ```
 
 ### Notes
 *var myDate = new Date("YYYY-mm-dd");* <br>
-*var myDate = new Date("YYYY-mm-ddTHH:MM:ss");* <br>
+*var myDate = new Date("YYYY-mm-ddTHH:MM:ss");* with UTC<br>
 *db.collection.updateMany(filter, update, options)* <br>
-*{ $or: [ { <expression1> }, { <expression2> }, ... , ]}*
+*{ $or: [ { <expression1> }, { <expression2> }, ... , ]}* <br>
+*{upsert: true }* insert if not exists
